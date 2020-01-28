@@ -1,0 +1,66 @@
+<head>
+  <meta charset="utf-8">
+  <title>Bela's Social Network</title>
+</head>
+
+<body>
+  {{> loginButtons}}
+  <h1>My social Network</h1>
+  <div id="wrapper">
+    <div id="profile-area">
+      {{> profileArea}}
+    </div>
+    <div id="dashboard">
+      {{#if currentUser}}
+      {{> postsForm}}
+      {{/if}}
+      {{> postsList}}
+    </div>
+  </div>
+</body>
+
+<template name="profileArea">
+{{#if currentUser}}
+      <div id="side-profile" class="side-box"><a class="filter-user">{{currentUser.username}}</a></div>
+      {{/if}}
+      <div id="side-all" class="side-box"><a class="community">Community</a></div>
+      {{#if currentUser}}
+      <div id="side-youlike" class="side-box">
+        <h2 id="youfollow-banner">Following</h2>
+        <div class="box-content">
+          {{#each username in following}}
+          <div><a class="filter-user">{{username}}</a></div>
+          {{/each}}
+        </div>
+      </div>
+      {{/if}}
+      {{#if currentUser}}
+      <div id="side-likeyou" class="side-box">
+        <h2 id="theyfollow-banner">Following You</h2>
+        <div class="box-content">
+          {{#each followers}}
+          <div><a class="filter-user">{{username}}</a></div>
+          {{/each}}
+        </div>
+      </div>
+      {{/if}}
+</template>
+
+<template name="postsForm">
+  <form id="post-form">
+    <textarea id="content-desk"></textarea>
+    <button type="submit">Say something</button>
+  </form>
+</template>
+
+<template name="postsList">
+  <ul class="post-list">
+    {{#each posts}}
+    <li class="post">
+      <div>{{content}}</div>
+      <div><a class="filter-link">{{username}}</a><a class="follow-link">Follow</a></div>
+    </li>
+    {{/each}}
+  </ul>
+</template>
+
